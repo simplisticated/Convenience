@@ -69,11 +69,14 @@ public class PermissionManager {
         String[] blockedPermissionsArray = blockedPermissionsList.toArray(
                 new String[] {}
         );
+        CheckResult checkResult = new CheckResult(
+                allowedPermissionsArray,
+                blockedPermissionsArray
+        );
 
         if (listener != null) {
             listener.onResult(
-                    allowedPermissionsArray,
-                    blockedPermissionsArray
+                    checkResult
             );
         }
     }
@@ -100,10 +103,6 @@ public class PermissionManager {
             final Activity activity,
             final OnRequestListener listener
     ) {
-        if (listener == null) {
-            return;
-        }
-
         if (!this.enabled) {
             return;
         }
@@ -113,41 +112,53 @@ public class PermissionManager {
                 activity,
                 new OnCheckListener() {
                     @Override
-                    public void onResult(String[] allowedPermissions, String[] blockedPermissions) {
-                        if (blockedPermissions.length == 0) {
-                            listener.onResult(
-                                    allowedPermissions,
-                                    blockedPermissions
+                    public void onResult(CheckResult checkResult) {
+                        if (checkResult.getBlockedPermissions().length == 0) {
+                            RequestResult requestResult = new RequestResult(
+                                    checkResult.getAllowedPermissions(),
+                                    checkResult.getBlockedPermissions()
                             );
+
+                            if (listener != null) {
+                                listener.onResult(
+                                        requestResult
+                                );
+                            }
                         } else {
                             final ArrayList<String> allowedPermissionsList = new ArrayList<>();
                             allowedPermissionsList.addAll(
                                     Arrays.asList(
-                                            allowedPermissions
+                                            checkResult.getAllowedPermissions()
                                     )
                             );
 
                             PermissionManager.this.requestPermissions(
-                                    blockedPermissions,
+                                    checkResult.getBlockedPermissions(),
                                     activity,
                                     new OnRequestListener() {
                                         @Override
-                                        public void onResult(String[] allowedPermissions, String[] blockedPermissions) {
+                                        public void onResult(RequestResult result) {
                                             allowedPermissionsList.addAll(
                                                     Arrays.asList(
-                                                            allowedPermissions
+                                                            result.getAllowedPermissions()
                                                     )
                                             );
 
                                             String[] allowedPermissionsArray = allowedPermissionsList.toArray(
-                                                    new String[] {}
+                                                    new String[]{}
                                             );
-                                            String[] blockedPermissionsArray = blockedPermissions;
+                                            String[] blockedPermissionsArray = result.getBlockedPermissions();
 
-                                            listener.onResult(
-                                                    allowedPermissionsArray,
-                                                    blockedPermissionsArray
+                                            RequestResult requestResult = new RequestResult(
+                                                    result.getAllowedPermissions(),
+                                                    result.getBlockedPermissions()
                                             );
+
+                                            if (listener != null) {
+                                                listener.onResult(
+                                                        requestResult
+                                                );
+                                            }
                                         }
                                     }
                             );
@@ -193,27 +204,28 @@ public class PermissionManager {
         String[] blockedPermissionsArray = blockedPermissionsList.toArray(
                 new String[] {}
         );
-
-        this.onRequestListener.onResult(
+        RequestResult requestResult = new RequestResult(
                 allowedPermissionsArray,
                 blockedPermissionsArray
+        );
+
+        this.onRequestListener.onResult(
+                requestResult
         );
         this.onRequestListener = null;
 
         return true;
     }
 
-    public static abstract class OnCheckListener {
-        public abstract void onResult(
-                String[] allowedPermissions,
-                String[] blockedPermissions
+    public interface OnCheckListener {
+        void onResult(
+                CheckResult checkResult
         );
     }
 
-    public static abstract class OnRequestListener {
-        public abstract void onResult(
-                String[] allowedPermissions,
-                String[] blockedPermissions
+    public interface OnRequestListener {
+        void onResult(
+                RequestResult requestResult
         );
     }
 }
