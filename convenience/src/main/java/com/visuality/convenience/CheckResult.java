@@ -21,4 +21,8 @@ public class CheckResult {
         this.allowedPermissions = allowedPermissions;
         this.blockedPermissions = blockedPermissions;
     }
+
+    public boolean hasBlockedPermissions() {
+        return this.blockedPermissions.length > 0;
+    }
 }
