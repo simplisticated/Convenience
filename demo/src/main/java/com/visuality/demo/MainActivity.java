@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.os.Bundle;
 
 import com.visuality.convenience.PermissionManager;
+import com.visuality.convenience.RequestResult;
 
 public class MainActivity extends Activity {
 
@@ -17,13 +18,13 @@ public class MainActivity extends Activity {
                 Manifest.permission.CAMERA,
                 Manifest.permission.WRITE_EXTERNAL_STORAGE
         };
-        
-        PermissionManager.getInstance().checkPermissions(
+
+        PermissionManager.getInstance().requestPermissionsIfNeeded(
                 permissions,
                 this,
-                new PermissionManager.OnCheckListener() {
+                new PermissionManager.OnRequestListener() {
                     @Override
-                    public void onResult(String[] allowedPermissions, String[] blockedPermissions) {
+                    public void onResult(RequestResult requestResult) {
                     }
                 }
         );
