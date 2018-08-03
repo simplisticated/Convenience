@@ -203,15 +203,15 @@ public class PermissionManager {
         return true;
     }
 
-    public interface OnCheckListener {
-        void onResult(
+    public static abstract class OnCheckListener {
+        public abstract void onResult(
                 String[] allowedPermissions,
                 String[] blockedPermissions
         );
     }
 
-    public interface OnRequestListener {
-        void onResult(
+    public static abstract class OnRequestListener {
+        public abstract void onResult(
                 String[] allowedPermissions,
                 String[] blockedPermissions
         );
