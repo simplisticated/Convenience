@@ -217,13 +217,13 @@ public class PermissionManager {
         return true;
     }
 
-    public interface OnCheckListener {
+    public static interface OnCheckListener {
         void onResult(
                 CheckResult checkResult
         );
     }
 
-    public interface OnRequestListener {
+    public static interface OnRequestListener {
         void onResult(
                 RequestResult requestResult
         );
