@@ -39,6 +39,33 @@ All operations with permissions are done with `PermissionManager` instance which
 PermissionManager permissionManager = PermissionManager.getInstance();
 ```
 
+### Preparing Activity
+
+Before using `Convenience` for permission request, you have to override activity's `onRequestPermissionsResult` method:
+
+```java
+@Override
+public void onRequestPermissionsResult(
+    int requestCode,
+    @NonNull String[] permissions,
+    @NonNull int[] grantResults
+) {
+    boolean handledByPermissionManager = PermissionManager.getInstance().onRequestPermissionsResult(
+        requestCode,
+        permissions,
+        grantResults
+    );
+
+    if (!handledByPermissionManager) {
+        super.onRequestPermissionsResult(
+            requestCode,
+            permissions,
+            grantResults
+        );
+    }
+}
+```
+
 ### Check
 
 ```java
@@ -109,7 +136,6 @@ PermissionManager.getInstance().requestPermissionsIfNeeded(
     }
 );
 ```
-
 
 `RequestResult` instance includes both allowed and blocked permissions:
 
