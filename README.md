@@ -31,7 +31,15 @@ dependencies {
 
 ## Usage
 
-Check permissions:
+### Permission Manager
+
+All operations with permissions are done with `PermissionManager` instance which is available via:
+
+```java
+PermissionManager permissionManager = PermissionManager.getInstance();
+```
+
+### Check
 
 ```java
 String[] permissions = new String[] {
@@ -45,17 +53,26 @@ PermissionManager.getInstance().checkPermissions(
     new PermissionManager.OnRequestListener() {
         @Override
         public void onResult(CheckResult checkResult) {
-            if (checkResult.getBlockedPermissions().length == 0) {
-                // All permissions available
+            if (requestResult.hasBlockedPermissions()) {
+                // Handle blocked permissions
             } else {
-                // Some permissions are blocked
+                // All permissions available
             }
         }
     }
 );
 ```
 
-Request permissions:
+`CheckResult` instance includes both allowed and blocked permissions:
+
+```java
+String[] allowedPermissions = checkResult.getAllowedPermissions();
+String[] blockedPermissions = checkResult.getBlockedPermissions();
+```
+
+### Request
+
+Ask user to accept permissions:
 
 ```java
 PermissionManager.getInstance().requestPermissions(
@@ -64,17 +81,17 @@ PermissionManager.getInstance().requestPermissions(
     new PermissionManager.OnRequestListener() {
         @Override
         public void onResult(RequestResult requestResult) {
-            if (requestResult.getBlockedPermissions().length == 0) {
-                // All permissions available
+            if (requestResult.hasBlockedPermissions()) {
+                // Handle blocked permissions
             } else {
-                // Some permissions are blocked
+                // All permissions available
             }
         }
     }
 );
 ```
 
-Request only those permissions from the list that are currently blocked:
+Also, you can request only those permissions from the list that are currently blocked. It means that, if the permissions list includes accepted permissions, they will not be requested again. User will be asked to accept other permissions that were not accepted before:
 
 ```java
 PermissionManager.getInstance().requestPermissionsIfNeeded(
@@ -83,14 +100,22 @@ PermissionManager.getInstance().requestPermissionsIfNeeded(
     new PermissionManager.OnRequestListener() {
         @Override
         public void onResult(RequestResult requestResult) {
-            if (requestResult.getBlockedPermissions().length == 0) {
-                // All permissions available
+            if (requestResult.hasBlockedPermissions()) {
+                // Handle blocked permissions
             } else {
-                // Some permissions are blocked
+                // All permissions available
             }
         }
     }
 );
+```
+
+
+`RequestResult` instance includes both allowed and blocked permissions:
+
+```java
+String[] allowedPermissions = requestResult.getAllowedPermissions();
+String[] blockedPermissions = requestResult.getBlockedPermissions();
 ```
 
 ## License
