@@ -32,7 +32,7 @@ Then add `Convenience` to dependencies list:
 
 ```javascript
 dependencies {
-    implementation 'com.github.igormatyushkin014:Convenience:1.3'
+    implementation 'com.github.igormatyushkin014:Convenience:1.3.1'
 }
 ```
 
