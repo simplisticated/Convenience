@@ -2,7 +2,6 @@ package com.visuality.convenience;
 
 import android.app.Activity;
 import android.content.pm.PackageManager;
-import android.support.annotation.NonNull;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -170,8 +169,8 @@ public class PermissionManager {
 
     public boolean onRequestPermissionsResult(
             int requestCode,
-            @NonNull String[] permissions,
-            @NonNull int[] results
+            String[] permissions,
+            int[] results
     ) {
         if (requestCode != REQUEST_CODE) {
             return false;
