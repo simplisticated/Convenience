@@ -33,7 +33,7 @@ public class PermissionManager {
         this.enabled = true;
     }
 
-    public void checkPermissions(
+    public void check(
             String[] permissions,
             Activity activity,
             final OnCheckListener listener
@@ -74,7 +74,7 @@ public class PermissionManager {
         }
     }
 
-    public void requestPermissions(
+    public void request(
             String[] permissions,
             Activity activity,
             final OnRequestListener listener
@@ -91,7 +91,7 @@ public class PermissionManager {
         this.waitingForResponse = true;
     }
 
-    public void requestPermissionsIfNeeded(
+    public void requestIfNeeded(
             String[] permissions,
             final Activity activity,
             final OnRequestListener listener
@@ -100,7 +100,7 @@ public class PermissionManager {
             return;
         }
 
-        this.checkPermissions(
+        this.check(
                 permissions,
                 activity,
                 new OnCheckListener() {
@@ -125,7 +125,7 @@ public class PermissionManager {
                                     )
                             );
 
-                            PermissionManager.this.requestPermissions(
+                            PermissionManager.this.request(
                                     checkResult.getBlockedPermissions(),
                                     activity,
                                     new OnRequestListener() {
