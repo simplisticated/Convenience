@@ -8,7 +8,7 @@ import java.util.Arrays;
 
 public class PermissionManager {
 
-    public static final int REQUEST_CODE = Integer.MAX_VALUE;
+    private static final int REQUEST_CODE = Integer.MAX_VALUE;
 
     private OnRequestListener onRequestListener;
 
@@ -28,7 +28,7 @@ public class PermissionManager {
         this.enabled = enabled;
     }
 
-    public PermissionManager() {
+    PermissionManager() {
         this.waitingForResponse = false;
         this.enabled = true;
     }
@@ -118,8 +118,7 @@ public class PermissionManager {
                                 );
                             }
                         } else {
-                            final ArrayList<String> allowedPermissionsList = new ArrayList<>();
-                            allowedPermissionsList.addAll(
+                            final ArrayList<String> allowedPermissionsList = new ArrayList<>(
                                     Arrays.asList(
                                             checkResult.getAllowedPermissions()
                                     )
