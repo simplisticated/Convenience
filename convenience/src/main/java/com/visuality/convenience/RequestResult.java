@@ -14,7 +14,7 @@ public class RequestResult {
         return this.blockedPermissions;
     }
 
-    public RequestResult(
+    RequestResult(
             String[] allowedPermissions,
             String[] blockedPermissions
     ) {
