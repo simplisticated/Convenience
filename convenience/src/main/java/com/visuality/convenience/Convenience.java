@@ -11,4 +11,7 @@ public class Convenience {
 
         return permissionManager;
     }
+
+    private Convenience() {
+    }
 }
