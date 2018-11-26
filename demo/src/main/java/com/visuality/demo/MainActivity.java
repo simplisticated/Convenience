@@ -4,6 +4,7 @@ import android.Manifest;
 import android.app.Activity;
 import android.os.Bundle;
 
+import com.visuality.convenience.Convenience;
 import com.visuality.convenience.PermissionManager;
 import com.visuality.convenience.RequestResult;
 
@@ -19,7 +20,7 @@ public class MainActivity extends Activity {
                 Manifest.permission.WRITE_EXTERNAL_STORAGE
         };
 
-        PermissionManager.getInstance().requestPermissionsIfNeeded(
+        Convenience.getPermissions().requestPermissionsIfNeeded(
                 permissions,
                 this,
                 new PermissionManager.OnRequestListener() {
