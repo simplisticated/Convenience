@@ -52,7 +52,7 @@ dependencies {
 All operations with permissions are done with `PermissionManager` instance which is available via:
 
 ```java
-PermissionManager permissionManager = PermissionManager.getInstance();
+PermissionManager permissionManager = Convenience.getPermissions();
 ```
 
 ### Preparing Activity
@@ -66,7 +66,7 @@ public void onRequestPermissionsResult(
     @NonNull String[] permissions,
     @NonNull int[] grantResults
 ) {
-    boolean handledByPermissionManager = PermissionManager.getInstance().onRequestPermissionsResult(
+    boolean handledByPermissionManager = Convenience.getPermissions().onRequestPermissionsResult(
         requestCode,
         permissions,
         grantResults
@@ -82,7 +82,7 @@ public void onRequestPermissionsResult(
 }
 ```
 
-### Check
+### Check Permissions
 
 ```java
 String[] permissions = new String[] {
@@ -90,7 +90,7 @@ String[] permissions = new String[] {
     Manifest.permission.WRITE_EXTERNAL_STORAGE
 };
 
-PermissionManager.getInstance().checkPermissions(
+Convenience.getPermissions().check(
     permissions,
     activity,
     new PermissionManager.OnRequestListener() {
@@ -113,12 +113,12 @@ String[] allowedPermissions = checkResult.getAllowedPermissions();
 String[] blockedPermissions = checkResult.getBlockedPermissions();
 ```
 
-### Request
+### Request Permissions
 
 Ask user to accept permissions:
 
 ```java
-PermissionManager.getInstance().requestPermissions(
+Convenience.getPermissions().request(
     permissions,
     activity,
     new PermissionManager.OnRequestListener() {
@@ -137,7 +137,7 @@ PermissionManager.getInstance().requestPermissions(
 Also, you can request only those permissions from the list that are currently blocked. It means that, if the permissions list includes accepted permissions, they will not be requested again. User will be asked to accept other permissions that were not accepted before:
 
 ```java
-PermissionManager.getInstance().requestPermissionsIfNeeded(
+Convenience.getPermissions().requestIfNeeded(
     permissions,
     activity,
     new PermissionManager.OnRequestListener() {
