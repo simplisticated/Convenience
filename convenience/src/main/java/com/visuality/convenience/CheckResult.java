@@ -14,7 +14,7 @@ public class CheckResult {
         return this.blockedPermissions;
     }
 
-    public CheckResult(
+    CheckResult(
             String[] allowedPermissions,
             String[] blockedPermissions
     ) {
