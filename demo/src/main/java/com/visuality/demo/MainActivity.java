@@ -20,7 +20,7 @@ public class MainActivity extends Activity {
                 Manifest.permission.WRITE_EXTERNAL_STORAGE
         };
 
-        Convenience.getPermissions().requestPermissionsIfNeeded(
+        Convenience.getPermissions().requestIfNeeded(
                 permissions,
                 this,
                 new PermissionManager.OnRequestListener() {
