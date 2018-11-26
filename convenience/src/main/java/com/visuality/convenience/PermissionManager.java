@@ -8,12 +8,6 @@ import java.util.Arrays;
 
 public class PermissionManager {
 
-    private static final PermissionManager sharedInstance = new PermissionManager();
-
-    public static PermissionManager getInstance() {
-        return sharedInstance;
-    }
-
     public static final int REQUEST_CODE = Integer.MAX_VALUE;
 
     private OnRequestListener onRequestListener;
@@ -34,7 +28,7 @@ public class PermissionManager {
         this.enabled = enabled;
     }
 
-    private PermissionManager() {
+    public PermissionManager() {
         this.waitingForResponse = false;
         this.enabled = true;
     }
