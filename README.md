@@ -66,13 +66,13 @@ public void onRequestPermissionsResult(
     @NonNull String[] permissions,
     @NonNull int[] grantResults
 ) {
-    boolean handledByPermissionManager = Convenience.getPermissions().onRequestPermissionsResult(
+    boolean handledByConvenience = Convenience.getPermissions().onRequestPermissionsResult(
         requestCode,
         permissions,
         grantResults
     );
 
-    if (!handledByPermissionManager) {
+    if (!handledByConvenience) {
         super.onRequestPermissionsResult(
             requestCode,
             permissions,
